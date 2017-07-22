@@ -1,0 +1,102 @@
+service: steal-aws-cred
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+functions:
+  direct-victim:
+    handler: victim/direct.handler
+
+    events:
+      - http:
+          path: /direct
+          method: get
+
+    environment:
+      ATTACKERS_DEN: ${cf:steal-aws-cred-dev.ServiceEndpoint}/attackers-den
+
+  transient-victim:
+    handler: victim/transient.handler
+
+    events:
+      - http:
+          path: /transient
+          method: get
+    
+    environment:
+      ATTACKERS_DEN: ${cf:steal-aws-cred-dev.ServiceEndpoint}/attackers-den
+
+  attacker:
+    handler: attacker/handler.handler
+    role: AttackerRole
+
+    events:
+      - http:
+          path: /attackers-den
+          method: post
+
+    environment:
+      JACKPOT_TOPIC: 
+        "Fn::Join": 
+          - ""
+          - 
+            - "arn:aws:sns:us-east-1:"
+            - "Ref": "AWS::AccountId"
+            - ":attackers-den-jackpot"
+
+resources:
+  Resources:
+    AttackersDenJackpot:
+      Type: "AWS::SNS::Topic"
+      Properties: 
+        DisplayName: attackers-den-jackpot
+        TopicName: attackers-den-jackpot
+
+    AttackerRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ${self:service}-dev-us-east-1-attackerRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: attackerPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: 
+                    Fn::Join:
+                      - ""
+                      - 
+                        - "arn:aws:logs:us-east-1:"
+                        - "Ref": "AWS::AccountId"
+                        - ":log-group:/aws/lambda/*:*:*"
+                - Effect: Allow
+                  Action:
+                    - ec2:CreateNetworkInterface
+                    - ec2:DescribeNetworkInterfaces
+                    - ec2:DetachNetworkInterface
+                    - ec2:DeleteNetworkInterface
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - SNS:Publish
+                  Resource: 
+                    "Fn::Join":
+                      - ""
+                      - 
+                        - "arn:aws:sns:us-east-1:"
+                        - "Ref": "AWS::AccountId"
+                        - ":attackers-den-jackpot"

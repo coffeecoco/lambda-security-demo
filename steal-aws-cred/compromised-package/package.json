@@ -1,0 +1,12 @@
+{
+  "name": "do-not-download-this-package",
+  "version": "1.0.5",
+  "description": "used in a security demo, DO NOT DOWNLOAD!!!",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "superagent": "^3.5.2"
+  }
+}

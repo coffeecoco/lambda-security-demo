@@ -1,0 +1,21 @@
+{
+  "name": "steal-aws-cred",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "co": "^4.6.0",
+    "do-not-download-this-package": "1.0.5",
+    "do-not-download-this-package-neither": "^1.0.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.88.0",
+    "serverless": "^1.18.0"
+  }
+}

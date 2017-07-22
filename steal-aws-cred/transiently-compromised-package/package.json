@@ -1,0 +1,12 @@
+{
+  "name": "do-not-download-this-package-neither",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "do-not-download-this-package": "^1.0.5"
+  }
+}
