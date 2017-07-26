@@ -1,6 +1,6 @@
 {
   "name": "do-not-download-this-package",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "used in a security demo, DO NOT DOWNLOAD!!!",
   "main": "index.js",
   "scripts": {},

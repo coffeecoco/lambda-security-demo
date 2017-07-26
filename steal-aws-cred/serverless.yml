@@ -3,11 +3,11 @@ service: steal-aws-cred
 provider:
   name: aws
   runtime: nodejs6.10
-  # iamRoleStatements:
-  #   -  Effect: "Allow"
-  #      Action:
-  #        - "s3:List*"
-  #      Resource: "*"
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListAllMyBuckets"
+       Resource: "*"
 
 functions:
   direct-victim:

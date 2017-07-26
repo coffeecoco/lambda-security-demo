@@ -11,11 +11,10 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "co": "^4.6.0",
-    "do-not-download-this-package": "1.0.5",
+    "do-not-download-this-package": "^1.0.0",
     "do-not-download-this-package-neither": "^1.0.0"
   },
   "devDependencies": {
-    "aws-sdk": "^2.88.0",
-    "serverless": "^1.18.0"
+    "aws-sdk": "^2.88.0"
   }
 }

